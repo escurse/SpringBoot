@@ -50,6 +50,7 @@ public class UserController {
         // 로그인 성공이다!!
         if(user != null) {
             session.setAttribute("login", true);
+            // 조회된 유저를 세션에 등록한다(바인딩)
             session.setAttribute("user", user);
 
             // redirect: 재 요청을 보낸다 (GET)
