@@ -1,42 +1,47 @@
 package com.escass.springbootbasicproject.controllers;
 
-import com.escass.springbootbasicproject.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
+    // 기본적으로 url에 적는 경로와 html파일 경로 같으면
+    // 반환 안해도 알아서 url 경로와 같은 html 찾아감
+    @GetMapping("/login")
+    public void get_login() {
+        System.out.println("get_login이 실행됨");
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView getLogin() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("user/login");
-        System.out.println("get");
-        return modelAndView;
-    }
+    @PostMapping("/login")
+    String post_login(
+            @RequestParam("id") String userID,
+            @RequestParam("pw") String userPW
+    ) {
+        // id: korea / pw: 123
+        System.out.println("post_login이 실행됨");
+        System.out.println("받은id: " + userID);
+        System.out.println("받은pw: " + userPW);
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView postLogin(@RequestParam(value = "id", required = false) String username,
-                            @RequestParam(value = "pw", required = false) String password) {
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println(username);
-        System.out.println(password);
-        boolean result = this.userService.LoginCheck(username, password);
-        if (result) {
-            modelAndView.setViewName("user/register");
-        } else {
-            modelAndView.setViewName("user/login");
+        if(userID.equals("korea") && userPW.equals("123")) {
+            // redirect: 재 요청을 보낸다 (GET)
+            // url 적는 곳의 경로를 적어야 함!
+            // '/' 를 작성하면 localhost:8080 이 기준
+            // '/' 를 작성하지 않으면 현재 내 경로가 기준
+            // => localhost:8080/main/login/board 가 되버린다
+            return "redirect:/board";
         }
-        return modelAndView;
+        return "redirect:/user/login";
     }
+
+
+
+
+
+    @GetMapping("/register")
+    public void get_register() {}
+
 }

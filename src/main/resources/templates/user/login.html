@@ -1,24 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>로그인페이지</title>
 </head>
 <body>
 <h1>로그인페이지</h1>
-<form id="form">
-    <label>
-        <span>아이디: </span>
-        <input type="text" name="id">
-    </label>
-    <label>
-        <span>비밀번호: </span>
-        <input type="text" name="pw">
-    </label>
-    <button type="submit">전송</button>
+<form method="post">
+    아이디: <input type="text" name="id"> <br>
+    비밀번호: <input type="text" name="pw"> <br>
+    <input type="checkbox"> 아이디저장 <br>
+    <button>전송</button>
 </form>
 </body>
 </html>
+<script>
+    const idInput = document.querySelector('input[name=id]');
+    const idCheckBox = document.querySelector('input[type=checkbox]');
+    const submitBtn = document.querySelector('button');
+    // 전송 버튼을 누르면
+    submitBtn.onclick = () => {
+        // 아이디 저장 체크가 되어있는지 확인
+        if(idCheckBox.checked){
+            // 작성된 아이디 값을 가져옴
+            const id = idInput.value;
+            // 현재 날짜 가져옴
+            const expire = new Date();
+            // 현재 날짜보다 1분 늦는 날짜로 설정함
+            expire.setMinutes(expire.getMinutes() + 1);
+            // 쿠키를 생성 (name = id, value = 작성된 아이디)
+            document.cookie = `id=${id}; expires=${expire.toUTCString()}`;
+        }
+    }
+
+
+
+    const cookies = document.cookie;
+    console.log(cookies)
+
+
+
+
+
+
+
+</script>
