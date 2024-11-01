@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>로그인페이지</title>
@@ -12,6 +12,7 @@
     <input type="checkbox"> 아이디저장 <br>
     <button>전송</button>
 </form>
+<a href="/user/register">회원가입</a>
 </body>
 </html>
 <script>
@@ -30,16 +31,35 @@
             expire.setMinutes(expire.getMinutes() + 1);
             // 쿠키를 생성 (name = id, value = 작성된 아이디)
             document.cookie = `id=${id}; expires=${expire.toUTCString()}`;
-        } else {
-            document.cookie = 'id=';
+        }
+        // 아이디 저장 체크가 안되어있으면 == 저장해놨다해도 없애야 함
+        else{
+            // id 에 해당하는 쿠키 값을 빈 문자열로 (이게 제일 쉬워요)
+            document.cookie = 'id='; // session쿠키가 되서 브라우저 끄면 사라집니다!
         }
     }
+
+
+    // 현재 브라저에 저장된 모든 쿠키 값들을 가져온다
     const cookies = document.cookie;
+    // 쿠키 (이름-값) 의 한쌍들 (배열)
     const cookieEntries = cookies.split(';');
-    for (const cookieEntry of cookieEntries) {
+    // 해당 쌍들을 순회한다
+    for(const cookieEntry of cookieEntries){
+        // 키=값 의 형태로 되어 있으니까 '=' 을 기준으로 나눈다
         const [name, value] = cookieEntry.trim().split('=');
-        if (name === 'id') {
+        console.log(name, value);
+        // 쿠키의 이름이 id 라면
+        if(name === 'id'){
+            // 쿠키의 값을 id 입력란에 넣는다
             idInput.value = value;
         }
     }
+
+
+
+
+
+
+
 </script>
