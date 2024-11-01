@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value="main")
+@RequestMapping(value="/main")
 public class MainController {
-    @RequestMapping(value="board", method= RequestMethod.GET)
+    @RequestMapping(value="/board", method= RequestMethod.GET)
     public ModelAndView getBoard() {
         ModelAndView modelAndView = new ModelAndView();
         // prefix: 앞에 붙는 단어 => /templates/
@@ -19,7 +19,7 @@ public class MainController {
         return modelAndView;
     }
 
-    @RequestMapping(value="write", method= RequestMethod.GET)
+    @RequestMapping(value="/write", method= RequestMethod.GET)
     public ModelAndView getWrite() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("main/write");
