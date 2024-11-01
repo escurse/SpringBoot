@@ -32,16 +32,12 @@
             document.cookie = `id=${id}; expires=${expire.toUTCString()}`;
         }
     }
-
-
-
     const cookies = document.cookie;
-    console.log(cookies)
-
-
-
-
-
-
-
+    const cookieEntries = cookies.split(';');
+    for (const cookieEntry of cookieEntries) {
+        const [name, value] = cookieEntry.trim().split('=');
+        if (name === 'id') {
+            idInput.value = value;
+        }
+    }
 </script>

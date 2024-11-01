@@ -39,10 +39,4 @@ public class SessionController {
         }
         return "cookie/cookie";
     }
-
-
-
-
-
-
 }

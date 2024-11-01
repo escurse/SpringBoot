@@ -29,8 +29,4 @@ public class MainController {
         // String 형태를 반환하면 해당 이름의 html을 찾아간다!
         return "main/write";
     }
-
-
-
-
 }

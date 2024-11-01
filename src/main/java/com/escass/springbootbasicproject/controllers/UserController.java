@@ -13,7 +13,6 @@ public class UserController {
     // 반환 안해도 알아서 url 경로와 같은 html 찾아감
     @GetMapping("/login")
     public void get_login() {
-        System.out.println("get_login이 실행됨");
     }
 
     @PostMapping("/login")
@@ -21,11 +20,6 @@ public class UserController {
             @RequestParam("id") String userID,
             @RequestParam("pw") String userPW
     ) {
-        // id: korea / pw: 123
-        System.out.println("post_login이 실행됨");
-        System.out.println("받은id: " + userID);
-        System.out.println("받은pw: " + userPW);
-
         if(userID.equals("korea") && userPW.equals("123")) {
             // redirect: 재 요청을 보낸다 (GET)
             // url 적는 곳의 경로를 적어야 함!
@@ -36,10 +30,6 @@ public class UserController {
         }
         return "redirect:/user/login";
     }
-
-
-
-
 
     @GetMapping("/register")
     public void get_register() {}
