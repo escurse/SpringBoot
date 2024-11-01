@@ -13,8 +13,16 @@ public class UserController {
     // 기본적으로 url에 적는 경로와 html파일 경로 같으면
     // 반환 안해도 알아서 url 경로와 같은 html 찾아감
     @GetMapping("/login")
-    public void get_login() {
+    public String get_login(HttpSession session) {
         System.out.println("get_login이 실행됨");
+        // 로그인을 하고 왔으면 loginData가 null이 아닐것이다
+        Object loginData = session.getAttribute("login");
+        // 로그인이 안 된 상태라면 로그인 페이지를 보여준다
+        if(loginData == null) {
+            return "user/login";
+        }
+        // 로그인이 된 상태라면 다시 board로 GET요청한다
+        return "redirect:/board";
     }
 
     @PostMapping("/login")
@@ -39,14 +47,16 @@ public class UserController {
         }
         return "redirect:/user/login";
     }
+    /***********************************************************/
+    @GetMapping("/logout")
+    public String get_logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/user/login";
+    }
 
 
 
-
-
-
-
-
+    /***********************************************************/
     @GetMapping("/register")
     public void get_register() {}
 

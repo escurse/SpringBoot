@@ -7,5 +7,13 @@
 <body>
 <h1>!게시판!</h1>
 <b>data:</b><span th:text="${data}"></span>
+<form action="/user/logout">
+    <button>로그아웃</button>
+</form>
 </body>
 </html>
+<script>
+    document.querySelector('button').onclick = () => {
+        location.href = '/user/logout';
+    }
+</script>

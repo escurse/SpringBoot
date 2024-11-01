@@ -15,8 +15,10 @@ public class MainController {
         Object loginData = session.getAttribute("login");
         if(loginData == null){
             System.out.println("로그인 안하고 왔네?");
-            return new ModelAndView("user/login");
+            // 다시 /user/login으로 GET요청한다
+            return new ModelAndView("redirect:/user/login");
         }
+
         ModelAndView mav = new ModelAndView();
         // prefix: 앞에 붙는 단어 => /templates/
         // suffix: 뒤에 붙는 단어 => .html
