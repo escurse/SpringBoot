@@ -30,6 +30,8 @@
             expire.setMinutes(expire.getMinutes() + 1);
             // 쿠키를 생성 (name = id, value = 작성된 아이디)
             document.cookie = `id=${id}; expires=${expire.toUTCString()}`;
+        } else {
+            document.cookie = 'id=';
         }
     }
     const cookies = document.cookie;
