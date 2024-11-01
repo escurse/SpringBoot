@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 @Controller
 public class SessionController {
@@ -34,7 +34,7 @@ public class SessionController {
     }
 
     @RequestMapping("/cookie")
-    public String cookie(@CookieValue("id") String id, HttpServletRequest request) {
+    public String cookie(HttpServletRequest request) {
         // 모든 쿠키 값을 가져온다
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
@@ -49,6 +49,14 @@ public class SessionController {
         HttpSession session = request.getSession();
         System.out.println(session.getId());
         System.out.println(session.isNew());
+        return "cookie/session";
+    }
+
+    @RequestMapping("/session")
+    public String session(HttpSession session) {
+        System.out.println(session.getId());
+        session.setAttribute("sNumber", 1000);
+        session.setAttribute("sDate", new Date());
         return "cookie/session";
     }
 
