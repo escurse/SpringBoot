@@ -3,9 +3,12 @@ package com.escass.springbootbasicproject.controllers;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -18,6 +21,7 @@ public class SessionController {
             HttpServletResponse response
     ) {
         String encodedValue = URLEncoder.encode("스프링에서만듦", StandardCharsets.UTF_8);
+//        URLDecoder.decode(encodedValue, StandardCharsets.UTF_8);
         // 쿠키의 생성 (정의) => 영어,숫자는 그냥 넣으면 되는데 다른 글자는 URL Encoding 해야 함
         Cookie cookie = new Cookie("myCookie", encodedValue);
         // setMaxAge를 정해주면 Persistence 쿠키가 된다 (생명선이 존재함, 브라우저 껐다 켜도 있음)
@@ -30,7 +34,7 @@ public class SessionController {
     }
 
     @RequestMapping("/cookie")
-    public String cookie(HttpServletRequest request) {
+    public String cookie(@CookieValue("id") String id, HttpServletRequest request) {
         // 모든 쿠키 값을 가져온다
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
@@ -39,4 +43,13 @@ public class SessionController {
         }
         return "cookie/cookie";
     }
+
+    @RequestMapping("/create_session")
+    public String create_session(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        System.out.println(session.getId());
+        System.out.println(session.isNew());
+        return "cookie/session";
+    }
+
 }
