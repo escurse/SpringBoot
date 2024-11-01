@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -38,8 +37,4 @@ public class MainController {
         // String 형태를 반환하면 해당 이름의 html을 찾아간다!
         return "main/write";
     }
-
-
-
-
 }

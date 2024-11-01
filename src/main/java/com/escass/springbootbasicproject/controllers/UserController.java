@@ -1,15 +1,22 @@
 package com.escass.springbootbasicproject.controllers;
 
+import com.escass.springbootbasicproject.dto.User;
+import com.escass.springbootbasicproject.mapper.UserMapper;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
+    private final UserMapper userMapper;
     // 기본적으로 url에 적는 경로와 html파일 경로 같으면
     // 반환 안해도 알아서 url 경로와 같은 html 찾아감
     @GetMapping("/login")
@@ -38,6 +45,11 @@ public class UserController {
         // 로그인 성공이다!!
         if(userID.equals("korea") && userPW.equals("123")) {
             session.setAttribute("login", true);
+
+            User user = new User("korea", "123", "코리아", new Date());
+            session.setAttribute("user", user);
+
+
             // redirect: 재 요청을 보낸다 (GET)
             // url 적는 곳의 경로를 적어야 함!
             // '/' 를 작성하면 localhost:8080 이 기준
@@ -50,7 +62,9 @@ public class UserController {
     /***********************************************************/
     @GetMapping("/logout")
     public String get_logout(HttpSession session){
+        // 현재 존재하는 세션을 제거한다(삭제)
         session.invalidate();
+        // 다시 로그인 페이지로 보낸다 (GET요청)
         return "redirect:/user/login";
     }
 
@@ -59,5 +73,16 @@ public class UserController {
     /***********************************************************/
     @GetMapping("/register")
     public void get_register() {}
+
+    @PostMapping("/register")
+    public String post_register(User user){
+        userMapper.insertUser(user);
+
+        return "redirect:/user/login";
+    }
+
+
+
+
 
 }

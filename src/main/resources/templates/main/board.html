@@ -6,14 +6,33 @@
 </head>
 <body>
 <h1>!게시판!</h1>
-<b>data:</b><span th:text="${data}"></span>
+<section>
+    <h2>유저의 정보</h2>
+    <div th:text="${session.user}"></div>
+    <div>
+        <b>아이디:</b> <span th:text="${session.user.getId()}"></span>
+    </div>
+    <div>
+        <b>닉네임:</b> <span th:text="${session.user.getNickName()}"></span>
+    </div>
+    <div>
+        <b>가입일:</b> <span th:text="${session.user.getRegisterDate()}"></span>
+    </div>
+</section>
 <form action="/user/logout">
-    <button>로그아웃</button>
+    <button onclick="location.href = '/user/logout';">로그아웃</button>
 </form>
 </body>
 </html>
 <script>
-    document.querySelector('button').onclick = () => {
+    document.querySelector('button').onclick = () =>{
         location.href = '/user/logout';
     }
 </script>
+
+
+
+
+
+
+
