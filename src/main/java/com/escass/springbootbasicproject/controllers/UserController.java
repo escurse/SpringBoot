@@ -3,7 +3,7 @@ package com.escass.springbootbasicproject.controllers;
 import com.escass.springbootbasicproject.dto.User;
 import com.escass.springbootbasicproject.mapper.UserMapper;
 import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +14,10 @@ import java.util.Date;
 
 @Controller
 @RequestMapping("/user")
-@RequiredArgsConstructor
 public class UserController {
-    private final UserMapper userMapper;
+    @Autowired
+    private UserMapper userMapper;
+
     // 기본적으로 url에 적는 경로와 html파일 경로 같으면
     // 반환 안해도 알아서 url 경로와 같은 html 찾아감
     @GetMapping("/login")
@@ -74,10 +75,10 @@ public class UserController {
     @GetMapping("/register")
     public void get_register() {}
 
+    // 핸들러 메서드에서는 파라미터 명과 필드 변수명이 같은 객체를 자동으로 매핑해준다
     @PostMapping("/register")
     public String post_register(User user){
         userMapper.insertUser(user);
-
         return "redirect:/user/login";
     }
 
